@@ -188,10 +188,16 @@ spec:
               - mountPath: /ssh
                 name: ssh
                 readOnly: true
+        volumes:
+          - name: ssh
+            secret:
+              optional: false
+              secretName: multi-platform-ssh-$(context.taskRun.name)
     workspaces:
     - name: workspace
     - name: git-auth
       optional: true
+
   taskRunTemplate: {}
   workspaces:
   - name: workspace
