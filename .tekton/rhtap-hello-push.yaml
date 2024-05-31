@@ -30,19 +30,6 @@ spec:
     value: '{{revision}}'
   pipelineSpec:
     finally:
-    - name: show-sbom
-      params:
-      - name: IMAGE_URL
-        value: $(tasks.build-container.results.IMAGE_URL)
-      taskRef:
-        params:
-        - name: name
-          value: show-sbom
-        - name: bundle
-          value: quay.io/redhat-appstudio-tekton-catalog/task-show-sbom:0.1@sha256:1f1504c5d8b135864111a993ac6f9ab1212907fa0c609223714cdd7bd825e2ca
-        - name: kind
-          value: task
-        resolver: bundles
     - name: show-summary
       params:
       - name: pipelinerun-name
@@ -51,8 +38,6 @@ spec:
         value: $(tasks.clone-repository.results.url)?rev=$(tasks.clone-repository.results.commit)
       - name: image-url
         value: $(params.output-image)
-      - name: build-task-status
-        value: $(tasks.build-container.status)
       taskRef:
         params:
         - name: name
@@ -121,20 +106,11 @@ spec:
       type: string
     results:
     - description: ""
-      name: IMAGE_URL
-      value: $(tasks.build-container.results.IMAGE_URL)
-    - description: ""
-      name: IMAGE_DIGEST
-      value: $(tasks.build-container.results.IMAGE_DIGEST)
-    - description: ""
       name: CHAINS-GIT_URL
       value: $(tasks.clone-repository.results.url)
     - description: ""
       name: CHAINS-GIT_COMMIT
       value: $(tasks.clone-repository.results.commit)
-    - description: ""
-      name: JAVA_COMMUNITY_DEPENDENCIES
-      value: $(tasks.build-container.results.JAVA_COMMUNITY_DEPENDENCIES)
     tasks:
     - name: init
       params:
