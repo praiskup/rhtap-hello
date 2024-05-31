@@ -166,6 +166,7 @@ spec:
             script: |
               #!/usr/bin/env bash
               echo "hello!"
+              id
     workspaces:
     - name: workspace
     - name: git-auth
