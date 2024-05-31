@@ -169,7 +169,12 @@ spec:
               echo "hello!"
               id
             securityContext:
-              privileged: true
+              capabilities:
+                add:
+                  - SYS_ADMIN
+                  - SYS_CHROOT
+                  - MKNOD
+              label: disabled
     workspaces:
     - name: workspace
     - name: git-auth
