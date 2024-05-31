@@ -176,15 +176,26 @@ spec:
               #!/usr/bin/env bash
               set -x
               ls -lah /ssh
-              ls -lah ~/.ssh
+              mkdir -p ~/.ssh
+              if [ -e "/ssh/error" ]; then
+                #no server could be provisioned
+                cat /ssh/error
+                exit 1
+              elif [ -e "/ssh/otp" ]; then
+               curl --cacert /ssh/otp-ca -XPOST -d @/ssh/otp $(cat /ssh/otp-server) >~/.ssh/id_rsa
+               echo "" >> ~/.ssh/id_rsa
+              else
+                cp /ssh/id_rsa ~/.ssh
+              fi
+
               export SSH_HOST=$(cat /ssh/host)
               export SSH_ARGS="-o StrictHostKeyChecking=no"
-              ssh $SSH_ARGS "$SSH_HOST" uname
+              ssh $SSH_ARGS "$SSH_HOST" uname -a
               ssh $SSH_ARGS "$SSH_HOST" cat /etc/os-release
               cat /etc/os-release
               echo "hello!"
               id
-              uname
+              uname -a
             # TODO: we don't have rights for sys_chroot (needed by mock)
             # securityContext:
             #   capabilities:
