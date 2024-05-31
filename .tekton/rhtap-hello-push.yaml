@@ -156,11 +156,12 @@ spec:
         workspace: workspace
       - name: basic-auth
         workspace: git-auth
+
     - name: test-task
       taskSpec:
         steps:
           - name: test-step
-            image: registry.fedoraproject.org/fedora:40
+            image: "registry.fedoraproject.org/fedora:40"
             script: |
               #!/usr/bin/env bash
               echo "hello!"
