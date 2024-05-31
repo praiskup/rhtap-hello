@@ -172,6 +172,7 @@ spec:
               capabilities:
                 add:
                   - SETFCAP
+                  - ADMIN
               label: disabled
     workspaces:
     - name: workspace
