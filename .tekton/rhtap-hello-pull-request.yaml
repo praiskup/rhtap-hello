@@ -160,20 +160,35 @@ spec:
         workspace: git-auth
 
     - name: test-task
+      params:
+        - name: PLATFORM
+          value: linux/arm64
+
       taskSpec:
         steps:
           - name: test-step
-            image: "registry.fedoraproject.org/fedora:40"
+            metadata:
+              labels:
+                build.appstudio.redhat.com/multi-platform-required: "true"
+            #image: "registry.fedoraproject.org/fedora:40"
+            image: "quay.io/redhat-appstudio/multi-platform-runner:01c7670e81d5120347cf0ad13372742489985e5f@sha256:246adeaaba600e207131d63a7f706cffdcdc37d8f600c56187123ec62823ff44"
             script: |
               #!/usr/bin/env bash
+              ls -lah /ssh
+              cat /etc/os-release
               echo "hello!"
               id
-            securityContext:
-              capabilities:
-                add:
-                  - SETFCAP
-                  - SYS_CHROOT
-              label: disabled
+            # TODO: we don't have rights for sys_chroot (needed by mock)
+            # securityContext:
+            #   capabilities:
+            #     add:
+            #       - SYS_CHROOT
+            #   label: disabled
+        volumes:
+          - name: ssh
+            secret:
+              optional: false
+              secretName: multi-platform-ssh-$(context.taskRun.name)
     workspaces:
     - name: workspace
     - name: git-auth
