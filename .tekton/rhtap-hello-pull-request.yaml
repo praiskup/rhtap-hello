@@ -184,11 +184,10 @@ spec:
             #     add:
             #       - SYS_CHROOT
             #   label: disabled
-        volumes:
-          - name: ssh
-            secret:
-              optional: false
-              secretName: multi-platform-ssh-$(context.taskRun.name)
+            volumeMounts:
+              - mountPath: /ssh
+                name: ssh
+                readOnly: true
     workspaces:
     - name: workspace
     - name: git-auth
