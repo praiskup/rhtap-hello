@@ -162,7 +162,7 @@ spec:
     - name: test-task
       params:
         - name: PLATFORM
-          value: linux/arm64
+          value: linux/amd64
 
       taskSpec:
         steps:
@@ -197,6 +197,10 @@ spec:
               echo "hello!"
               id
               uname -a
+
+              mock_image=quay.io/redhat-user-workloads/rhn-support-praiskup-tenant/mock-container-image/mock-container-image:build-39275-1717176746
+
+              ssh $SSH_ARGS "$SSH_HOST" podman run --rm -ti --privileged "$mock_image" mock --shell
             # TODO: we don't have rights for sys_chroot (needed by mock)
             # securityContext:
             #   capabilities:
