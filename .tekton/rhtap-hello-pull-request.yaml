@@ -174,10 +174,17 @@ spec:
             image: "quay.io/redhat-appstudio/multi-platform-runner:01c7670e81d5120347cf0ad13372742489985e5f@sha256:246adeaaba600e207131d63a7f706cffdcdc37d8f600c56187123ec62823ff44"
             script: |
               #!/usr/bin/env bash
+              set -x
               ls -lah /ssh
+              ls -lah ~/.ssh
+              export SSH_HOST=$(cat /ssh/host)
+              export SSH_ARGS="-o StrictHostKeyChecking=no"
+              ssh $SSH_ARGS "$SSH_HOST" uname
+              ssh $SSH_ARGS "$SSH_HOST" cat /etc/os-release
               cat /etc/os-release
               echo "hello!"
               id
+              uname
             # TODO: we don't have rights for sys_chroot (needed by mock)
             # securityContext:
             #   capabilities:
