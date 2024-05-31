@@ -1,6 +1,12 @@
 FROM registry.fedoraproject.org/fedora:40
 
-RUN dnf install -y httpd && dnf clean all
+RUN dnf install -y httpd mock && dnf clean all
+
+RUN useradd mockbuilder && usermod -a -G mock mockbuilder
+
+USER mockbuilder
+
+RUN mock --shell
 
 EXPOSE 8080
 
