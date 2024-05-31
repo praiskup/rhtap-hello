@@ -187,6 +187,7 @@ spec:
               else
                 cp /ssh/id_rsa ~/.ssh
               fi
+              chmod 0400 ~/.ssh/id_rsa
 
               export SSH_HOST=$(cat /ssh/host)
               export SSH_ARGS="-o StrictHostKeyChecking=no"
