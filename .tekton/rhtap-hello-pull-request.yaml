@@ -168,6 +168,8 @@ spec:
               #!/usr/bin/env bash
               echo "hello!"
               id
+            securityContext:
+              privileged: true
     workspaces:
     - name: workspace
     - name: git-auth
