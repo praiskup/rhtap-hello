@@ -172,7 +172,7 @@ spec:
               capabilities:
                 add:
                   - SETFCAP
-                  - ADMIN
+                  - SYS_CHROOT
               label: disabled
     workspaces:
     - name: workspace
