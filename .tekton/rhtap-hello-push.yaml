@@ -140,7 +140,7 @@ spec:
       taskRef:
         params:
         - name: name
-          value: git-clone
+          value: clone-package-repo
         - name: bundle
           value: quay.io/redhat-appstudio-tekton-catalog/task-git-clone:0.1@sha256:729ed7f3b7a3da2658c80655039989a66da207b91036893409bd1305e69a655f
         - name: kind
@@ -156,6 +156,12 @@ spec:
         workspace: workspace
       - name: basic-auth
         workspace: git-auth
+    - name: test
+      image: registry.fedoraproject.org/fedora:40
+      script: |
+        #!/usr/bin/env bash
+        echo "hello!"
+
     workspaces:
     - name: workspace
     - name: git-auth
