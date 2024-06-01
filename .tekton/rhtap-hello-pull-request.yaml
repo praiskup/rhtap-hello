@@ -159,6 +159,16 @@ spec:
       - name: basic-auth
         workspace: git-auth
 
+
+    - name: test-mock
+      taskSpec:
+        steps:
+          - name: test-mock-step-1
+            image: "quay.io/redhat-user-workloads/rhn-support-praiskup-tenant/mock-container-image/mock-container-image:build-39275-1717176746"
+            script: |
+              mock https://kojipkgs.fedoraproject.org//packages/python-copr/1.132/1.fc41/src/python-copr-1.132-1.fc41.src.rpm
+
+
     - name: test-task
       params:
         - name: PLATFORM
@@ -166,6 +176,7 @@ spec:
 
       taskSpec:
         steps:
+
           - name: test-step
             metadata:
               labels:
