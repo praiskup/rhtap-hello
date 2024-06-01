@@ -201,6 +201,10 @@ spec:
               mock_image=quay.io/redhat-user-workloads/rhn-support-praiskup-tenant/mock-container-image/mock-container-image:build-39275-1717176746
               srpm=https://kojipkgs.fedoraproject.org//packages/python-copr/1.132/1.fc41/src/python-copr-1.132-1.fc41.src.rpm
 
+              useradd test
+              sudo -u test id
+              sudo -u test podman run --rm -ti --privileged "$mock_image" mock "$srpm"
+
               ssh $SSH_ARGS "$SSH_HOST" podman run --rm -ti --privileged "$mock_image" mock "$srpm"
             # TODO: we don't have rights for sys_chroot (needed by mock)
             # securityContext:
