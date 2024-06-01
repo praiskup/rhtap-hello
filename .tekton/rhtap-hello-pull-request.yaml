@@ -205,6 +205,8 @@ spec:
               useradd test
               su test -c id
 
+              su test -c "podman run --rm --privileged -ti $mock_image mock $srpm"
+
               ssh $SSH_ARGS "$SSH_HOST" podman run --rm -ti --privileged "$mock_image" mock "$srpm"
             # TODO: we don't have rights for sys_chroot (needed by mock)
             # securityContext:
