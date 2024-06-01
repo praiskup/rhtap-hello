@@ -159,24 +159,27 @@ spec:
       - name: basic-auth
         workspace: git-auth
 
-
-    - name: test-matrix
-      params:
-        - name: foo
-          value: default
+    - name: matrix-and-params
       matrix:
         params:
-          - name: foo
+          - name: platform
             value:
-              - abc
-              - efg
+              - linux
+              - mac
+              - windows
+      params:
+        - name: browser
+          value: chrome
+
       taskSpec:
+        params:
+          - name: platform
+          - name: browser
         steps:
-          - name: hello
-            displayName: "foo = $(params.foo)"
-            image: ubuntu
+          - name: echo
+            image: alpine
             script: |
-              echo hello $(params.foo)
+              echo "$(params.platform) and $(params.browser)"
 
     - name: test-mock
       taskSpec:
