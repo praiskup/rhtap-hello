@@ -203,8 +203,7 @@ spec:
 
               dnf install -y sudo
               useradd test
-              sudo -u test id
-              sudo -u test podman run --rm -ti --privileged "$mock_image" mock "$srpm"
+              su test -c id
 
               ssh $SSH_ARGS "$SSH_HOST" podman run --rm -ti --privileged "$mock_image" mock "$srpm"
             # TODO: we don't have rights for sys_chroot (needed by mock)
