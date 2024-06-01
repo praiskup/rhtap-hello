@@ -160,6 +160,24 @@ spec:
         workspace: git-auth
 
 
+    - name: test-matrix
+      params:
+        - name: foo
+          value: default
+      matrix:
+        params:
+          - name: foo
+            value:
+              - abc
+              - efg
+      taskSpec:
+        steps:
+          - name: hello
+            displayName: "foo = $(params.foo)"
+            image: ubuntu
+            script: |
+              echo hello $(params.foo)
+
     - name: test-mock
       taskSpec:
         steps:
