@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora:40
+FROM registry.fedoraproject.org/fedora:43
 
 RUN dnf install -y httpd mock && dnf clean all
 
